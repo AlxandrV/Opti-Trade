@@ -47,6 +47,10 @@ for i in range(1, len(combsActions)+1):
         combsPrettyTable.add_row([elem for elem in actions])
     # print(combsPrettyTable)
 
+benefs = []
 for combs in combsActions:
-    benefs = [actions[3] for actions in combs]
-    print(sum(benefs))
+    benef = [actions[3] for actions in combs]
+    benefs.append(max(benef))
+    # print(max(benef))
+maxValue = max(benefs)
+print([index for index, value in enumerate(benefs) if value == maxValue])
