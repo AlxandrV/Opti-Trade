@@ -45,4 +45,8 @@ for i in range(1, len(combsActions)+1):
             actions.pop(-1)
         actions.append(round(int(actions[1]) / 100 * int(actions[2]), 2))
         combsPrettyTable.add_row([elem for elem in actions])
-    print(combsPrettyTable)
+    # print(combsPrettyTable)
+
+for combs in combsActions:
+    benefs = [actions[3] for actions in combs]
+    print(sum(benefs))
