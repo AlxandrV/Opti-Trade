@@ -34,17 +34,15 @@ for i in range(len(minRes), len(actionsList)+1):
         for actions in comb:
             actionsPrice.append(int(actions[1]))
         if sum(actionsPrice) <= BUDGET:
-            # print(sum(actionsPrice))
             combsActions.append(comb)
 
 # Print all combinations
 for i in range(1, len(combsActions)+1):
     print("Combinaison possible n°" + str(i) + " :")
-    combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Profits en 2 ans (€)"])
-    # actionsPrice = [actions for actions in comb]
+    combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Profits in 2 years (€)"])
     for actions in combsActions[i-1]:
-        actions.append(actions[1] / 100 * actions[2])
+        if len(actions) == 4:
+            actions.pop(-1)
+        actions.append(round(int(actions[1]) / 100 * int(actions[2]), 2))
         combsPrettyTable.add_row([elem for elem in actions])
-        # actionsPrice.append(int(actions[1]))
     print(combsPrettyTable)
-
