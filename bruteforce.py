@@ -40,9 +40,11 @@ for i in range(len(minRes), len(actionsList)+1):
 # Print all combinations
 for i in range(1, len(combsActions)+1):
     print("Combinaison possible n°" + str(i) + " :")
-    combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Rendment (%)"])
+    combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Profits en 2 ans (€)"])
     # actionsPrice = [actions for actions in comb]
     for actions in combsActions[i-1]:
+        actions.append(actions[1] / 100 * actions[2])
         combsPrettyTable.add_row([elem for elem in actions])
         # actionsPrice.append(int(actions[1]))
     print(combsPrettyTable)
+
