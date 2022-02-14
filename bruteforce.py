@@ -13,7 +13,7 @@ with open(FILE_ACTION, 'r') as file:
 
     actionsList = [action for action in csvFile]
     for actions in actionsList:
-        actions.append(float(actions[1]) * round((float(actions[2]) / 100), 2))
+        actions.append(round(float(actions[1]) * (float(actions[2]) / 100), 2))
 
 # Determine minimum entry for budget
 actionsSorted = sorted(actionsList, key=lambda row: float(row[1]), reverse=True)
@@ -47,16 +47,12 @@ print('Combinaisons possibles : ' + str(len(combsActions)))
 benefits = [combination.get('benefits') for combination in combsActions]
 maxBenef = max(benefits)
 indexBenef = [(index, value) for index, value in enumerate(benefits) if value == maxBenef]
-for index in indexBenef:
-    print(combsActions[index[0]])
-# print(benefList)
+
 # Print all combinations
-# for i in range(1, len(combsActions)+1):
-#     print("Combinaison possible n°" + str(i) + " :")
-#     combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Profits in 2 years (€)"])
-#     for actions in combsActions[i-1]:
-#         if len(actions) == 4:
-#             actions.pop(-1)
-#         actions.append(round(int(actions[1]) / 100 * int(actions[2]), 2))
-#         combsPrettyTable.add_row([elem for elem in actions])
-#     # print(combsPrettyTable)
+for index in indexBenef:
+    combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Benefits in 2 years (€)"])
+    for actions in combsActions[index[0]].get('combinations'):
+        combsPrettyTable.add_row([elem for elem in actions])
+    print(combsPrettyTable)
+    print("Bénéfice total en 2 ans : " + str(combsActions[index[0]].get('benefits')) + "€\n"
+        "Budget total : " + str(sum([float(actions[1]) for actions in combsActions[index[0]].get('combinations')])) + "€")
