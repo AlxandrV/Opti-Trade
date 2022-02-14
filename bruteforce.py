@@ -13,7 +13,7 @@ with open(FILE_ACTION, 'r') as file:
 
     actionsList = [action for action in csvFile]
     for actions in actionsList:
-        actions.append(float(actions[1]) * (float(actions[2]) / 100))
+        actions.append(float(actions[1]) * round((float(actions[2]) / 100), 2))
 
 # Determine minimum entry for budget
 actionsSorted = sorted(actionsList, key=lambda row: float(row[1]), reverse=True)
@@ -39,14 +39,17 @@ for i in range(len(combMin), len(actionsList)+1):
                     i.append(True)
             if len(i) == 0:
                 # print(sum(budgetComb))
-                combsActions.append(comb)
+                combsActions.append({'combinations': comb, 'benefits': round(sum([float(actions[3]) for actions in comb]), 2)})
 
 print('Combinaisons possibles : ' + str(len(combsActions)))
 
-for comb in combsActions:
-    benefComb = [float(actions[3]) for actions in comb]
-    print(sum(benefComb))
-
+# Return the index of the combinations where the benefits are maximal
+benefits = [combination.get('benefits') for combination in combsActions]
+maxBenef = max(benefits)
+indexBenef = [(index, value) for index, value in enumerate(benefits) if value == maxBenef]
+for index in indexBenef:
+    print(combsActions[index[0]])
+# print(benefList)
 # Print all combinations
 # for i in range(1, len(combsActions)+1):
 #     print("Combinaison possible n°" + str(i) + " :")
