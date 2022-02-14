@@ -38,7 +38,6 @@ for i in range(len(combMin), len(actionsList)+1):
                 if nameComb.count(elementInit[0]) == 0 and float(elementInit[1]) + sum(budgetComb) <= BUDGET:
                     i.append(True)
             if len(i) == 0:
-                # print(sum(budgetComb))
                 combsActions.append({'combinations': comb, 'benefits': round(sum([float(actions[3]) for actions in comb]), 2)})
 
 print('Combinaisons possibles : ' + str(len(combsActions)))
