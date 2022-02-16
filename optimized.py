@@ -1,5 +1,7 @@
 import csv
 
+from prettytable import PrettyTable
+
 BUDGET = 500
 FILE_ACTION = 'actions.csv'
 
@@ -19,7 +21,6 @@ optimizeComb = []
 for actions in actionsSorted:
     optimizeComb.append(actions)
     if sum([float(actions[1]) for actions in optimizeComb]) > BUDGET:
-        print("Trop haut 1")
         optimizeComb.pop(-1)
         benefitsSorted = sorted(actionsSorted, key=lambda row: float(row[3]), reverse=True)
         for benef in benefitsSorted:
@@ -29,4 +30,10 @@ for actions in actionsSorted:
                     optimizeComb.pop(-1)
         break
     
-print(sum([float(actions[1]) for actions in optimizeComb]))
+# Print all combinations
+combsPrettyTable = PrettyTable(["Actions name", "Price (€)", "Profits (%)", "Benefits in 2 years (€)"])
+for actions in optimizeComb:
+    combsPrettyTable.add_row([elem for elem in actions])
+print(combsPrettyTable)
+print("Bénéfice total en 2 ans : " + str(round(sum([float(actions[3]) for actions in optimizeComb]), 2)) + "€\n"
+    "Budget total : " + str(round(sum([float(actions[1]) for actions in optimizeComb]), 2)) + "€")
