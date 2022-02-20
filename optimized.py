@@ -10,7 +10,7 @@ with open(FILE_ACTION, 'r') as file:
     csvFile = csv.reader(file)
     header = next(csvFile)
 
-    actionsList = [action for action in csvFile]
+    actionsList = [action for action in csvFile if float(action[1]) > 0]
     for actions in actionsList:
         actions.append(round(float(actions[1]) * (float(actions[2]) / 100), 2))
 
