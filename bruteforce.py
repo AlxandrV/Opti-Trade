@@ -11,7 +11,7 @@ with open(FILE_ACTION, 'r') as file:
     csvFile = csv.reader(file)
     header = next(csvFile)
 
-    actionsList = [action for action in csvFile if float(action) > 0]
+    actionsList = [action for action in csvFile if float(action[1]) > 0]
     for actions in actionsList:
         actions.append(round(float(actions[1]) * (float(actions[2]) / 100), 2))
 
@@ -33,11 +33,11 @@ for i in range(len(combMin), len(actionsList)+1):
         budgetComb = [float(actions[1]) for actions in comb]
         nameComb = [actions[0] for actions in comb]
         if sum(budgetComb) <= BUDGET:
-            i = []
+            j = []
             for elementInit in actionsList:
                 if nameComb.count(elementInit[0]) == 0 and float(elementInit[1]) + sum(budgetComb) <= BUDGET:
-                    i.append(True)
-            if len(i) == 0:
+                    j.append(True)
+            if len(j) == 0:
                 combsActions.append({'combinations': comb, 'benefits': round(sum([float(actions[3]) for actions in comb]), 2)})
 
 print('Combinaisons possibles : ' + str(len(combsActions)))
